@@ -163,4 +163,6 @@ def main():
         if spin == 'q':
             break
     
+    print(f"You left with ${balance}")
+
 main()
