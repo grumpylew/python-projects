@@ -110,28 +110,30 @@ def get_bet():
             print("Please enter a valid number.")
     return amount   
 
-
-
-
-def main():
-    balance =  deposit()
+def game(balance):
     lines = get_number_of_lines()
+    time.sleep(1)
 
-    # check if total bet is within balance
     while True:
         bet = get_bet()
         total_bet = lines * bet
-
+        
         if total_bet > balance:
-            print(f"You do not have enough to bet that amount, your current balance is: ${balance} ")
+            print(f"You do not have enough balance. Top up ${abs(balance - total_bet)} to play. ")
+            make_deposit = input("Press ENTER to make a deposit. (q to quit)")
+            if make_deposit == 'q':
+                break
+            else:
+                balance += deposit()
         else:
-            # update balance
             balance -= total_bet
             break
-        
+
+    time.sleep(1) 
     print(f"You are betting ${bet} on {lines} lines.")
-    time.sleep(1)
+    time.sleep(2)
     print(f"Total bet is equal to: ${total_bet}. You have a balance of ${balance}.")
+    print("")
     time.sleep(1)
     print("Generating slots...")
     time.sleep(3)
@@ -141,10 +143,24 @@ def main():
     print("Checking winnings...")
     time.sleep(3)
     winnings = check_winnings(generate_slots, lines, bet, symbol_value)
-    balance += winnings
+    print("")
     if winnings != 0:
-        print(f"You won: ${winnings}!!!" )
+        print(f"******** You won: ${winnings} !!! ********")
     else:
-        print("Try your luck next time!")
+        print("Try your luck next time! :(")
+    print("")
+    return balance + winnings
+
+def main():
+    balance =  deposit()
+    time.sleep(1)
+    while balance >= 0:
+        balance = game(balance)
+        time.sleep(1)
+        print(f"Your current balance is ${balance}.")
+        time.sleep(1)
+        spin = input("Press ENTER to spin. (q to quit)")
+        if spin == 'q':
+            break
     
 main()
