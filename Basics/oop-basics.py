@@ -153,7 +153,7 @@ Math.pr()
 
 # instance and class variables
 class Employee:
-    raise_amount = 1.04
+    # raise_amount = 1.04
 
     def __init__(self, name, pay):
         self.name = name
@@ -162,11 +162,27 @@ class Employee:
     def apply_raise(self):
         self.pay = int(self.pay * self.raise_amount)
 
+    @classmethod
+    def set_raise_amount(cls, amount):
+        cls.raise_amount = amount
+
+    @staticmethod
+    def is_workday(day):
+        if day.weekday() == 5 or day.weekday() == 6:
+            return False
+        return True
+
 
 emp1 = Employee("Bill", 100)
 emp2 = Employee("Bob", 100)
-Employee.raise_amount = 1.05  # affects every instance
+
+# Employee.raise_amount = 1.05  # affects every instance
+Employee.set_raise_amount(1.05)
 emp1.raise_amount = 1.06  # only affects this instance
 print(Employee.raise_amount)
 print(emp1.raise_amount)
 print(emp2.raise_amount)
+
+import datetime
+
+print(Employee.is_workday(datetime.date(2024, 1, 1)))
