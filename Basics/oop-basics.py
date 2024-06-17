@@ -1,6 +1,7 @@
 # Object Oriented Progamming
 
 
+# basics
 class Dog:
 
     # intialise object when Dog() is created
@@ -24,10 +25,9 @@ class Dog:
 
 d = Dog("Tim", 32)  # instantiate new instance of <class Dog>
 # d.bark()   # calling <bark> method
-# print(d.add_one(5))
-# print(d.get_name())
+# print(d.get_name())   # call method using instance
 d.set_age(23)
-# print(d.get_age())
+print(Dog.get_age(d))  # call method using class
 
 
 class Student:
@@ -149,3 +149,24 @@ class Math:
 
 print(Math.add5(5))
 Math.pr()
+
+
+# instance and class variables
+class Employee:
+    raise_amount = 1.04
+
+    def __init__(self, name, pay):
+        self.name = name
+        self.pay = pay
+
+    def apply_raise(self):
+        self.pay = int(self.pay * self.raise_amount)
+
+
+emp1 = Employee("Bill", 100)
+emp2 = Employee("Bob", 100)
+Employee.raise_amount = 1.05  # affects every instance
+emp1.raise_amount = 1.06  # only affects this instance
+print(Employee.raise_amount)
+print(emp1.raise_amount)
+print(emp2.raise_amount)
