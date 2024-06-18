@@ -61,3 +61,32 @@ del person_1.name
 
 # Access the deleted attributes (will print None)
 print(f"Deleted Name: {person_1.name}")  # Output: Deleted Name: None
+
+
+# building your own decorators
+"""example on printing logs/check user permissions/timestamps for multiple functions, 
+can be used to modify code without changing original function
+"""
+
+
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(f"Running: {func.__name__}")
+        func(*args, **kwargs)
+        print("Completed")
+
+    return wrapper
+
+
+@my_decorator
+def do_this():
+    print("doing this")
+
+
+@my_decorator
+def do_that():
+    print("doing that")
+
+
+do_this()
+do_that()
