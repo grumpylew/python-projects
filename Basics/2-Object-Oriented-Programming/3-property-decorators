@@ -1,0 +1,59 @@
+# property decorators (getters, setters, deleters)
+class Rectangle:
+    def __init__(self, width, height):
+        self._width = width
+        self._height = height
+
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        if value <= 0:
+            raise ValueError("Width must be greater than zero.")
+        self._width = value
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, value):
+        if value <= 0:
+            raise ValueError("Height must be greater than zero.")
+        self._height = value
+
+    @property
+    def area(self):
+        return self._width * self._height
+
+    @property
+    def perimeter(self):
+        return 2 * (self._width + self._height)
+
+
+# Create a Rectangle instance
+rect = Rectangle(4, 5)
+
+# Access the width, height, area, and perimeter
+print(f"Width: {rect.width}")  # Output: Width: 4
+print(f"Height: {rect.height}")  # Output: Height: 5
+print(f"Area: {rect.area}")  # Output: Area: 20
+print(f"Perimeter: {rect.perimeter}")  # Output: Perimeter: 18
+
+# Update the width and height
+rect.width = 3
+rect.height = 7
+
+# Access the updated width, height, area, and perimeter
+print(f"Updated Width: {rect.width}")  # Output: Updated Width: 6
+print(f"Updated Height: {rect.height}")  # Output: Updated Height: 7
+print(f"Updated Area: {rect.area}")  # Output: Updated Area: 42
+print(f"Updated Perimeter: {rect.perimeter}")  # Output: Updated Perimeter: 26
+
+# Attempt to set a negative value (will raise an error)
+try:
+    rect.width = -2
+except ValueError as e:
+    print(e)  # Output: Width must be greater than zero.

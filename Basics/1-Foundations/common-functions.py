@@ -7,7 +7,7 @@ print("third line")
 strings = ["my", "world", "apple", "pear"]
 lengths = map(len, strings)  # returns map object
 lengths = map(lambda x: x + "s", strings)
-print(list(lengths))
+print(f"map output: {list(lengths)}")
 
 
 # filter (similar to map)
@@ -17,7 +17,7 @@ def longer_than_4(string):
 
 filtered = filter(longer_than_4, strings)  # returns filter object
 filtered = filter(lambda x: len(x) > 4, strings)
-print(list(filtered))
+print(f"filter output: {list(filtered)}")
 
 
 # sort (using key)
@@ -27,7 +27,7 @@ people = [
     {"name": "Charlie", "age": 10},
 ]
 sorted_people = sorted(people, key=lambda person: person["age"], reverse=True)
-print(sorted_people)
+print(f"sort output: {sorted_people}")
 
 # enumerate
 for index, value in enumerate(strings):
@@ -43,15 +43,16 @@ ages = [30, 20, 10]
 
 combined = list(zip(names, ages))  # returns zip object
 print(combined)  # list of tuples
+# output [('Alice', 30), ('Bob', 20), ('Charlie', 10)]
 
 for name, age in combined:
     print(f"{name} is {age} years old")
 
 # open (file / read - r / write - w / append - a)
 # uses a context manager, ensures file is closed properly
-with open("test.txt", "r") as file:
-    text = file.read()
-    print(text)
+# with open("test.txt", "r") as file:
+# text = file.read()
+# print(text)
 
 # mutable vs immutable
 x = 2
