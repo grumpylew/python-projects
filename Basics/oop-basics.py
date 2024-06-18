@@ -172,17 +172,46 @@ class Employee:
             return False
         return True
 
+    # special / dunder - double underscores methods (eg. __init__)
+    """
+    Defines a string representation of the object, useful for debugging.
+    - without this, print(emp1) would give a <employee object>
+    - print(emp1.__repr__()) to call this special method specifically 
+    """
 
-emp1 = Employee("Bill", 100)
+    def __repr__(self) -> str:
+        return f"Employee('{self.name}', '{self.pay}')"
+
+    # basically the same as repr but takes precedence over repr
+    def __str__(self) -> str:
+        return f"Employee('{self.name}')"
+
+    # special methods - arithmetic operators
+    def __add__(self, other):
+        return self.pay + other.pay
+
+    # special methods - len operators
+    def __len__(self):
+        return len(self.name)
+
+
+emp1 = Employee("Billyyy", 100)
 emp2 = Employee("Bob", 100)
+print(emp1)
+# print(emp1.__repr__())
+# print(emp1.__str__())
+print(emp1 + emp2)  # __add__ method specifies how to add 2 emp together
+print(len(emp1))  # __len__ method
+print(emp1.__len__())
 
 # Employee.raise_amount = 1.05  # affects every instance
-Employee.set_raise_amount(1.05)
-emp1.raise_amount = 1.06  # only affects this instance
-print(Employee.raise_amount)
-print(emp1.raise_amount)
-print(emp2.raise_amount)
+# Employee.set_raise_amount(1.05)
+# emp1.raise_amount = 1.06  # only affects this instance
+# print(Employee.raise_amount)
+# print(emp1.raise_amount)
+# print(emp2.raise_amount)
 
-import datetime
+# import datetime
+# print(Employee.is_workday(datetime.date(2024, 1, 1)))
 
-print(Employee.is_workday(datetime.date(2024, 1, 1)))
+# property decorators (getters, setters, deleters)
