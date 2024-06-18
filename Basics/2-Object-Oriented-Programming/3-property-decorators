@@ -1,59 +1,63 @@
 # property decorators (getters, setters, deleters)
-class Rectangle:
-    def __init__(self, width, height):
-        self._width = width
-        self._height = height
+class Person:
+    def __init__(self, name, age):
+        self._name = name
+        self._age = age
+
+    # Getter for name
+    @property
+    def name(self):
+        return self._name
+
+    # Setter for name
+    @name.setter
+    def name(self, value):
+        if not value:
+            raise ValueError("Name cannot be empty.")
+        self._name = value
+
+    # Deleter for name
+    @name.deleter
+    def name(self):
+        print("Deleting name...")
+        self._name = None
 
     @property
-    def width(self):
-        return self._width
+    def get_age(self):
+        return self._age
 
-    @width.setter
-    def width(self, value):
-        if value <= 0:
-            raise ValueError("Width must be greater than zero.")
-        self._width = value
+    @get_age.setter
+    def get_age(self, value):
+        if value < 0:
+            raise ValueError("Invalid Age")
+        self._age = value
 
+    @get_age.deleter
+    def get_age(self, value):
+        self._age = None
+
+    # Getter for email (computed from name)
     @property
-    def height(self):
-        return self._height
-
-    @height.setter
-    def height(self, value):
-        if value <= 0:
-            raise ValueError("Height must be greater than zero.")
-        self._height = value
-
-    @property
-    def area(self):
-        return self._width * self._height
-
-    @property
-    def perimeter(self):
-        return 2 * (self._width + self._height)
+    def email(self):
+        return f"{self._name.lower().replace(' ', '.')}@example.com"
 
 
-# Create a Rectangle instance
-rect = Rectangle(4, 5)
+# Create a Person instance
+person_1 = Person("John Doe", 30)
 
-# Access the width, height, area, and perimeter
-print(f"Width: {rect.width}")  # Output: Width: 4
-print(f"Height: {rect.height}")  # Output: Height: 5
-print(f"Area: {rect.area}")  # Output: Area: 20
-print(f"Perimeter: {rect.perimeter}")  # Output: Perimeter: 18
+# Access the name
+print(f"Name: {person_1.name}")  # Output: Name: John Doe
+print(f"Email: {person_1.email}")  # Output: Email: john.doe@example.com
 
-# Update the width and height
-rect.width = 3
-rect.height = 7
+# Update the name
+person_1.name = "Jane Doe"
 
-# Access the updated width, height, area, and perimeter
-print(f"Updated Width: {rect.width}")  # Output: Updated Width: 6
-print(f"Updated Height: {rect.height}")  # Output: Updated Height: 7
-print(f"Updated Area: {rect.area}")  # Output: Updated Area: 42
-print(f"Updated Perimeter: {rect.perimeter}")  # Output: Updated Perimeter: 26
+# Access the updated name
+print(f"Updated Name: {person_1.name}")  # Output: Updated Name: Jane Doe
+print(f"Updated Email: {person_1.email}")  # Output: Updated Email: jane.doe@example.com
 
-# Attempt to set a negative value (will raise an error)
-try:
-    rect.width = -2
-except ValueError as e:
-    print(e)  # Output: Width must be greater than zero.
+# Delete the name
+del person_1.name
+
+# Access the deleted attributes (will print None)
+print(f"Deleted Name: {person_1.name}")  # Output: Deleted Name: None
